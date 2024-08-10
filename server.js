@@ -7,7 +7,7 @@ const port = 3000;
 
 // Configurar o Access Token
 mercadopago.configure({
-    access_token: 'TEST-6387399809939200-080903-80aece7e3228452fb36e20b090fcc97f-324207934' // Substitua pelo seu Access Token
+    access_token: 'YOUR_ACCESS_TOKEN' // Substitua pelo seu Access Token
 });
 
 app.use(bodyParser.json());
