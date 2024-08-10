@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Configuração da chave pública do Mercado Pago
-    const PUBLIC_KEY = 'TEST-ca22cadb-6c68-4bae-8fef-cb3b309a4efe'; // Substitua pela sua chave pública do Mercado Pago
+    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Substitua pela sua chave pública do Mercado Pago
     const pontosSelect = document.getElementById('pontos');
     const dinheiroSpan = document.getElementById('dinheiro');
     const buttonContainer = document.getElementById('button-container');
+
+    // Configura o Mercado Pago
+    mercadopago.configure({
+        public_key: PUBLIC_KEY
+    });
 
     function converterPontos() {
         const pontos = pontosSelect.value;
@@ -18,30 +23,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function iniciarCheckout(valor) {
-        // Configuração do Mercado Pago
-        mercadopago.configure({
-            public_key: PUBLIC_KEY
-        });
-
-        // Criação do botão de pagamento
-        mercadopago.checkout({
-            preference: {
-                auto_return: 'approved',
-                back_urls: {
-                    success: 'https://www.seusite.com.br/success',
-                    failure: 'https://www.seusite.com.br/failure',
-                    pending: 'https://www.seusite.com.br/pending'
-                },
-                items: [{
-                    title: 'Compra de Pontos',
-                    unit_price: parseFloat(valor.replace(',', '.')),
-                    quantity: 1
-                }]
+        // Requisita a criação da preferência de pagamento
+        fetch('/create_preference', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            render: {
-                container: '#button-container',
-                label: 'Pagar com Mercado Pago'
-            }
+            body: JSON.stringify({ valor: valor.replace(',', '.') })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Configura o botão de pagamento com a preferência criada
+            mercadopago.checkout({
+                preference: {
+                    id: data.id
+                },
+                render: {
+                    container: '#button-container',
+                    label: 'Pagar com Mercado Pago'
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erro ao iniciar o checkout. Tente novamente.');
         });
     }
 

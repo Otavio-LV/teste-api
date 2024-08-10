@@ -1,0 +1,1 @@
+npm install --save express body-parser cors yargs dotenv consolidate ejs mercadopago
