@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Pontos</title>
+    <title>Checkout Transparente</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Inclua a biblioteca do Mercado Pago -->
     <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Conversor de Pontos para Dinheiro</h1>
+        <h1>Checkout Transparente com Mercado Pago</h1>
         <label for="pontos">Selecione a quantidade de pontos:</label>
         <select id="pontos" onchange="converterPontos()">
-            <!-- Opções de 1.000 a 1.000.000 pontos -->
             <script>
                 for (let i = 1000; i <= 1000000; i += 1000) {
                     document.write(`<option value="${i}">${i.toLocaleString('pt-BR')} pontos</option>`);
@@ -23,7 +21,7 @@
         <div class="resultado">
             <p>Dinheiro: <span id="dinheiro">0,00</span></p>
         </div>
-        <div id="button-container"></div> <!-- Contêiner para o botão -->
+        <div id="button-container"></div>
     </div>
     <script src="script.js"></script>
 </body>

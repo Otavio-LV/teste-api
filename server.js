@@ -7,7 +7,7 @@ const port = 3000;
 
 // Configurar o Access Token
 mercadopago.configure({
-    access_token: 'YOUR_ACCESS_TOKEN' // Substitua pelo seu Access Token
+    access_token: 'TEST-6387399809939200-080903-80aece7e3228452fb36e20b090fcc97f-324207934' // Substitua pelo seu Access Token do Mercado Pago
 });
 
 app.use(bodyParser.json());
@@ -25,12 +25,11 @@ app.post('/create_preference', async (req, res) => {
                 quantity: 1
             }],
             back_urls: {
-                success: 'http://www.seusite.com.br/success',
-                failure: 'http://www.seusite.com.br/failure',
-                pending: 'http://www.seusite.com.br/pending'
+                success: 'http://localhost:3000/success',
+                failure: 'http://localhost:3000/failure',
+                pending: 'http://localhost:3000/pending'
             },
-            auto_return: 'approved',
-            notification_url: 'http://www.seusite.com.br/notifications'
+            auto_return: 'approved'
         };
 
         const preferenceResponse = await mercadopago.preferences.create(preference);
@@ -39,6 +38,18 @@ app.post('/create_preference', async (req, res) => {
         console.error('Error creating preference:', error);
         res.status(500).json({ error: 'Error creating preference' });
     }
+});
+
+app.get('/success', (req, res) => {
+    res.send('Pagamento realizado com sucesso!');
+});
+
+app.get('/failure', (req, res) => {
+    res.send('O pagamento falhou. Tente novamente.');
+});
+
+app.get('/pending', (req, res) => {
+    res.send('O pagamento está pendente.');
 });
 
 app.listen(port, () => {
