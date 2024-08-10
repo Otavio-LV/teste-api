@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Configuração da chave pública do Mercado Pago
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Substitua pela sua chave pública do Mercado Pago
+    const PUBLIC_KEY = 'TEST-ca22cadb-6c68-4bae-8fef-cb3b309a4efe'; // Substitua pela sua chave pública do Mercado Pago
     const pontosSelect = document.getElementById('pontos');
     const dinheiroSpan = document.getElementById('dinheiro');
     const buttonContainer = document.getElementById('button-container');
